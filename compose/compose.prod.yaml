@@ -7,10 +7,10 @@ include:
 
 services:
   frontend:
-    image: lmacademy/web-translator-frontend:v1.1.0
+    image: chimdi247/web-translator-frontend:v1
 
   worker:
-    image: lmacademy/web-translator-worker:v1.1.0
+    image: chimdi247/web-translator-worker:v1
 
 # Shared networks for all services
 networks:
