@@ -17,6 +17,7 @@ COPY pyproject.toml ./
 RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 
 # Install Python dependencies (argostranslate will use the CPU-only PyTorch we just installed)
+ARG INSTALL_DEV=false
 RUN pip install --no-cache-dir . && \
     # Clean up unnecessary files to reduce image size
     find /usr/local/lib/python3.12/site-packages -type d \( -name "tests" -o -name "test" \) -exec rm -rf {} + 2>/dev/null || true && \

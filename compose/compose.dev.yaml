@@ -23,7 +23,9 @@ services:
   worker:
     build:
       context: ../app-versions/v1.1.0/code/worker
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+      args:
+      INSTALL_DEV: "true"
     volumes:
       # Mount source code for hot reload
       - ../app-versions/v1.1.0/code/worker/src:/app/src:ro
