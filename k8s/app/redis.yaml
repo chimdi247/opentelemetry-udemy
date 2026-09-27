@@ -76,3 +76,44 @@ spec:
   ports:
     - port: 9121
       targetPort: 9121
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redisinsight
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redisinsight
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redisinsight
+    spec:
+      containers:
+        - name: redisinsight
+          image: redis/redisinsight:latest
+          ports:
+            - containerPort: 5540
+          resources:
+            requests:
+              cpu: 50m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redisinsight
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: redisinsight
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5540
+      protocol: TCP
